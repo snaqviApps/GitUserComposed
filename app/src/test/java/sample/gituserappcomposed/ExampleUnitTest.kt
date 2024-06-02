@@ -1,4 +1,4 @@
-package com.example.gituserappcomposed
+package sample.gituserappcomposed
 
 import org.junit.Test
 

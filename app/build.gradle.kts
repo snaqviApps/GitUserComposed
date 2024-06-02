@@ -1,14 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.symbols)
+    alias(libs.plugins.hiltAndroid)
 }
 
 android {
-    namespace = "com.example.gituserappcomposed"
+    namespace = "sample.gituserappcomposed"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.gituserappcomposed"
+        applicationId = "sample.gituserappcomposed"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -40,11 +42,12 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.9"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+//            excludes += "/META-INF/gradle/incremental.annotation.processors"
         }
     }
 }
@@ -59,7 +62,20 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // Hilt
+    // Dagger - Hilt
+    implementation(libs.hilt.android.v250)
+    ksp(libs.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
+
+
+    // Test
     testImplementation(libs.junit)
+    implementation(libs.androidx.truth)
+
+
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
