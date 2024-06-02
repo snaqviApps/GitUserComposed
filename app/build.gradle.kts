@@ -47,7 +47,6 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-//            excludes += "/META-INF/gradle/incremental.annotation.processors"
         }
     }
 }
@@ -64,18 +63,13 @@ dependencies {
     implementation(libs.androidx.material3)
 
     // Hilt
-    // Dagger - Hilt
     implementation(libs.hilt.android.v250)
     ksp(libs.hilt.compiler)
     ksp(libs.androidx.hilt.compiler)
 
-
     // Test
     testImplementation(libs.junit)
     implementation(libs.androidx.truth)
-
-
-
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
