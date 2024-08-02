@@ -27,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import sample.gituserappcomposed.reposlist.presentation.GitUserRepos
@@ -54,8 +55,8 @@ fun PresentHomeScreen(viewModel: GitUserViewModel, navController: NavHostControl
                 ),
                 title = {
                     Text(
-                        "",
-
+                        "Github Repositories",
+                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.inverseOnSurface
                     )
                 }
@@ -92,10 +93,6 @@ fun PresentHomeScreen(viewModel: GitUserViewModel, navController: NavHostControl
         }
     )
     { paddingValues ->
-        Text(
-            text = "Home Screen",
-            modifier = Modifier.padding(paddingValues)
-        )
         when (stateValueCollected) {
             is GitUserRepos.Empty -> {
                 Text(text = "No repositories found")
