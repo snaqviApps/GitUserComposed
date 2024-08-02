@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.symbols)
     alias(libs.plugins.hiltAndroid)
+
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 android {
@@ -23,12 +25,19 @@ android {
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        buildTypes {
+            debug {
+                buildConfigField("String", "BASE_URL", "${properties["BASE_URL_VALUE"]}")
+            }
+            release {
+                buildConfigField("String", "BASE_URL", "${properties["BASE_URL_VALUE"]}")
+                isMinifyEnabled = false
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            }
+
         }
     }
     compileOptions {
@@ -40,6 +49,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.9"
@@ -64,12 +74,23 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android.v250)
+    implementation(libs.hilt.androidx.nav)
+    implementation(libs.androidx.material3.android)
     ksp(libs.hilt.compiler)
-    ksp(libs.androidx.hilt.compiler)
+
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.logging.interceptor)
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    implementation(libs.retrofit2.kotlin.coroutines.adapter)
 
     // Test
     testImplementation(libs.junit)
-    implementation(libs.androidx.truth)
+    androidTestImplementation(libs.androidx.truth)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
